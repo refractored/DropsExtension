@@ -1,7 +1,10 @@
-package net.refractored.Drops
+package net.refractored.drops
 
 import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.extensions.Extension
+import net.refractored.bloodmoonreloaded.BloodmoonPlugin
+import net.refractored.drops.drops.DropsRegistry
+import net.refractored.drops.listeners.OnEntityDeath
 import net.refractored.hordes.HordesExtension
 import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
@@ -34,12 +37,16 @@ class DropsExtension(
             }!!
         }
 
-        plugin.extensionLoader.loadedExtensions.find { it.name == "Hordes" }?.let {
-            hordes = it as HordesExtension
-        }
-
         dropsConfig = YamlConfiguration.loadConfiguration(dataFolder.resolve("drops.yml"))
 
+        DropsRegistry.refreshConfigs()
+
+        plugin.extensionLoader.loadedExtensions.find { it.name == "Hordes" }?.let {
+            hordes = it as HordesExtension
+            logger.info("Drops extension successfully hooked into Hordes.")
+        }
+
+        BloodmoonPlugin.instance.eventManager.registerListener(OnEntityDeath())
 //        BloodmoonPlugin.instance.eventManager.registerListener(OnBloodmoonStart())
 
 //        BloodmoonPlugin.instance.lamp.register(SpawnHordeCommand())

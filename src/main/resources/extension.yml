@@ -1,5 +1,5 @@
-name: Hordes
-main: net.refractored.hordes.HordesExtension
+name: Drops
+main: net.refractored.drops.DropsExtension
 version: 0.1
 author: refractored
 plugin: BloodmoonReloaded
