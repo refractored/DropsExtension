@@ -85,7 +85,11 @@ data class DropsConfig(
         WHITELIST,
     }
 
-    fun getWeightedRandomItemstack(hordes: Boolean): ItemStack {
+    /**
+     * Tries to get a random itemstack from the drops.
+     * @return an ItemStack from the drops, or null if no itemstack met the criteria
+     */
+    fun tryRandomItemstack(hordes: Boolean): ItemStack? {
         val totalWeight = drops.sumOf { it.weight }
         val randomValue = Math.random() * totalWeight
         var accumulatedWeight = 0.0
@@ -101,8 +105,15 @@ data class DropsConfig(
                 return drop.testableItem.item
             }
         }
+        return null
+    }
 
-        return drops
+    /**
+     * Gets a random itemstack from the drops.
+     * @return an ItemStack from the drops
+     */
+    fun getRandomItemstack(hordes: Boolean): ItemStack =
+        tryRandomItemstack(hordes) ?: drops
             .filter {
                 when (it.hordes) {
                     HordeType.BLOCKED -> !hordes
@@ -111,7 +122,6 @@ data class DropsConfig(
                 }
             }.random()
             .testableItem.item
-    }
 }
 
 data class Drop(

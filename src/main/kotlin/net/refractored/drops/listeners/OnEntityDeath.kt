@@ -47,22 +47,18 @@ class OnEntityDeath : Listener {
 
         val isHorde: Boolean = getHordeInfo(event.entity)
 
-        val amount =
-            (
-                dropsConfig.configSection
-                    .getInt("min-size")
-                    .coerceAtLeast(0)..dropsConfig.configSection.getInt("max-size").coerceAtLeast(0)
-            ).random()
-
-        for (i in 0..amount) {
-            event.entity.world.dropItemNaturally(
-                event.entity.location,
-                dropsConfig.getWeightedRandomItemstack(isHorde),
-            )
+        for (i in 0 until dropsConfig.configSection.getInt("max-size")) {
+            val itemStack =
+                if (i < dropsConfig.configSection.getInt("min-size")) {
+                    dropsConfig.getRandomItemstack(isHorde)
+                } else {
+                    dropsConfig.tryRandomItemstack(isHorde) ?: continue
+                }
+            event.entity.world.dropItemNaturally(event.entity.location, itemStack)
         }
     }
 
-    fun getHordeInfo(entity: Entity): Boolean {
+    private fun getHordeInfo(entity: Entity): Boolean {
         if (DropsExtension.instance.hordes == null) return false
         val config = HordeRegistry.getHordeConfig(entity.world) ?: return false
         return entity.persistentDataContainer.has(config.pdcKey)

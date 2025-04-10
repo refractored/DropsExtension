@@ -30,7 +30,7 @@ default-preset:
     - weight: 2
       hordes: true
       item: "diamond 1"
-    - weight: 2
+    - weight: 1
       hordes: true
       item: "iron_block 1"
     - weight: 2
@@ -40,6 +40,8 @@ default-preset:
   min-size: 0
   # If vanilla drops for any mob listed here should be disabled.
   disable-vanilla-drops: false
+  # People have made bloodmoon farms before on my server.
+  # These were some good ways to prevent that.
   farm-prevention:
     # If the entity NEEDS to have a line of sight drop custom drops.
     line-of-sight: true
