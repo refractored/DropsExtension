@@ -20,6 +20,7 @@ repositories {
 dependencies {
     compileOnly(fileTree("libs"))
     compileOnly("com.github.refractored:BloodmoonReloaded:main-SNAPSHOT")
+    compileOnly("com.github.refractored:HordesExtension:-SNAPSHOT")
     compileOnly("io.github.revxrsal:lamp.common:4.0.0-rc.9")
     compileOnly("io.github.revxrsal:lamp.bukkit:4.0.0-rc.9")
     compileOnly("io.github.revxrsal:lamp.brigadier:4.0.0-rc.9")
@@ -34,7 +35,7 @@ kotlin {
     jvmToolchain(targetJavaVersion)
 }
 
-tasks.shadowJar{
+tasks.shadowJar {
     relocate("revxrsal.commands", "net.refractored.libs.lamp")
 }
 

@@ -1,1 +1,1 @@
-rootProject.name = "Hordes"
+rootProject.name = "Drops"

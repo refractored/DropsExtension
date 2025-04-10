@@ -1,8 +1,8 @@
-package net.refractored.hordes
+package net.refractored.Drops
 
 import com.willfp.eco.core.EcoPlugin
 import com.willfp.eco.core.extensions.Extension
-import net.refractored.bloodmoonreloaded.BloodmoonPlugin
+import net.refractored.hordes.HordesExtension
 import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
 import java.nio.file.Files
@@ -20,6 +20,8 @@ class DropsExtension(
     lateinit var dropsConfig: YamlConfiguration
         private set
 
+    var hordes: HordesExtension? = null
+
     override fun onEnable() {
     }
 
@@ -32,7 +34,9 @@ class DropsExtension(
             }!!
         }
 
-
+        plugin.extensionLoader.loadedExtensions.find { it.name == "Hordes" }?.let {
+            hordes = it as HordesExtension
+        }
 
         dropsConfig = YamlConfiguration.loadConfiguration(dataFolder.resolve("drops.yml"))
 
@@ -47,7 +51,6 @@ class DropsExtension(
     override fun onReload() {
         // No need to re-register listeners in OnBloodmoonStart, as all bloodmoons & tasks are stopped on reload.
         dropsConfig = YamlConfiguration.loadConfiguration(dataFolder.resolve("drops.yml"))
-
     }
 
     companion object {
