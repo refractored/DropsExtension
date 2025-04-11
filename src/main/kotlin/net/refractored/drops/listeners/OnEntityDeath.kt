@@ -47,9 +47,9 @@ class OnEntityDeath : Listener {
 
         val isHorde: Boolean = getHordeInfo(event.entity)
 
-        for (i in 0 until dropsConfig.configSection.getInt("max-size")) {
+        for (i in 0 until dropsConfig.configSection.getInt("max-amount")) {
             val itemStack =
-                if (i < dropsConfig.configSection.getInt("min-size")) {
+                if (i < dropsConfig.configSection.getInt("min-amount")) {
                     dropsConfig.getRandomItemstack(isHorde)
                 } else {
                     dropsConfig.tryRandomItemstack(isHorde) ?: continue

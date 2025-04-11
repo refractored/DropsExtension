@@ -36,12 +36,12 @@ default-preset:
     - weight: 2
       hordes: true
       item: "gold_block 1"
-  max-size: 4
-  min-size: 0
+  min-amount: 1
+  max-amount: 4
   # If vanilla drops for any mob listed here should be disabled.
   disable-vanilla-drops: false
-  # People have made bloodmoon farms before on my server.
-  # These were some good ways to prevent that.
+  # People have made bloodmoon farms before,
+  # these were some good ways to prevent that.
   farm-prevention:
     # If the entity NEEDS to have a line of sight drop custom drops.
     line-of-sight: true
